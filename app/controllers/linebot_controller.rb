@@ -74,7 +74,7 @@ class LinebotController < ApplicationController
             else
           
               push =
-                "今日の天気？\n今日、雨は降らなさそうだよ＼(^o^)／＼(^o^)／"
+                "今日の天気？\n今日、雨は降らなさそうだよ＼(^o^)／"
             end
           end
           # テキスト以外（画像等）のメッセージが送られた場合
