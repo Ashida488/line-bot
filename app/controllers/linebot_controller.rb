@@ -38,7 +38,7 @@ class LinebotController < ApplicationController
             per18to24 = doc.elements[xpath + 'info[2]/rainfallchance/period[4]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               push =
-                "明日の天気だね。\n明日は雨が降りそうだよ(>_<)\n今のところ降水確率はこんな感じだよ。\n　  6〜12時　#{per06to12}％\n　12〜18時　 #{per12to18}％\n　18〜24時　#{per18to24}％\nまた明日の朝の最新の天気予報で雨が降りそうだったら教えるね！"
+                "明日の天気だね。\n明日は雨が降りそうだよ(>_<)\n今のところ降水確率はこんな感じだよ。\n6〜12時#{per06to12}％\n12〜18時#{per12to18}％\n18〜24時#{per18to24}％\nまた明日の朝の最新の天気予報で雨が降りそうだったら教えるね！"
             else
               push =
                 "明日の天気？\n明日は雨が降らない予定だよ(^^)\nまた明日の朝の最新の天気予報で雨が降りそうだったら教えるね！"
@@ -49,17 +49,11 @@ class LinebotController < ApplicationController
             per18to24 = doc.elements[xpath + 'info[3]/rainfallchance/period[4]l'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               push =
-                "明後日の天気だよね。\n何か予定でもあるのかな？\n明後日は雨が降りそう…\n当日の朝に雨が降りそうだったら教えるからね！"
+                "明後日の天気だよね。\n明後日は雨が降りそう…\n当日の朝に、また教えるからね！"
             else
               push =
-                "明後日の天気？\n気が早いねー！何か予定でもあるのかな。\n明後日は雨は降らない予定だよ(^^)\nまた当日の朝の最新の天気予報で雨が降りそうだったら教えるからね！"
+                "明後日の天気？\n明後日は雨は降らない予定だよ(^^)\nまた当日の朝の最新の天気予報で雨が降りそうだったら教えるからね！"
             end
-          when /.*(かわいい|可愛い|カワイイ|きれい|綺麗|キレイ|素敵|ステキ|すてき|面白い|おもしろい|ありがと|すごい|スゴイ|スゴい|好き|頑張|がんば|ガンバ).*/
-            push =
-              "ありがとう！！！\n優しい言葉をかけてくれるなんて嬉しいな(^^)"
-          when /.*(こんにちは|こんばんは|初めまして|はじめまして|おはよう).*/
-            push =
-              "こんにちは。\n声をかけてくれてありがとう\n今日があなたにとっていい日になりますように(^^)"
           else
             per06to12 = doc.elements[xpath + 'info/rainfallchance/period[2]l'].text
             per12to18 = doc.elements[xpath + 'info/rainfallchance/period[3]l'].text
@@ -67,19 +61,17 @@ class LinebotController < ApplicationController
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               word =
                 ["雨だけど元気出していこうね！",
-                 "雨に負けずファイト！！",
-                 "雨だけどあなたの明るさでみんなを元気にしてあげて(^^)"].sample
+                 "雨に負けずファイト！！"].sample
               push =
-                "今日の天気？\n今日は雨が降りそうだから傘を持っていったほうがいいよ。\n　  6〜12時　#{per06to12}％\n　12〜18時　 #{per12to18}％\n　18〜24時　#{per18to24}％\n#{word}"
+                "今日の天気？\n今日は雨が降りそうだから傘を持っていったほうがいいよ。\n 6〜12時#{per06to12}％\n12〜18時 #{per12to18}％\n18〜24時#{per18to24}％\n#{word}"
             else
-          
               push =
-                "今日の天気？\n今日、雨は降らなさそうだよ＼(^o^)／"
+                "今日の天気？\n今日は雨は降らなさそうだよ。"
             end
           end
           # テキスト以外（画像等）のメッセージが送られた場合
         else
-          push = "ごめんね。\n　textじゃないとわからないよ〜(；；)"
+          push = "メッセージを送ってね！"
         end
         message = {
           type: 'text',
